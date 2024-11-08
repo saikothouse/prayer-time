@@ -1,8 +1,8 @@
-"use client"; // This line makes the component a client component
+"use client";
 
 import { useEffect, useState } from 'react';
-import Spinner from '../components/Spinner';
-import RamadanCalendar from '../components/RamadanCalendar';
+import Spinner from '../components/Spinner'; // Adjust the path as necessary
+import RamadanCalendar from '../components/RamadanCalendar'; // Ensure this is the correct path
 
 interface PrayerTimes {
   Fajr: string;
@@ -88,7 +88,7 @@ const Home = () => {
           No prayer times available.
         </div>
       )}
-      <Ram adanCalendar />
+      <RamadanCalendar /> {/* Ensure this is used correctly */}
     </div>
   );
 };
