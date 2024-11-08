@@ -1,7 +1,6 @@
 "use client"; // This line makes the component a client component
 
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Spinner from '../components/Spinner';
 import RamadanCalendar from '../components/RamadanCalendar';
 
@@ -17,10 +16,15 @@ const Home = () => {
   useEffect(() => {
     const fetchLocation = async () => {
       try {
-        const res = await axios.get('https://ipapi.co/json/');
-        setLocation({ latitude: res.data.latitude, longitude: res.data.longitude });
+        const res = await fetch('https://ipapi.co/json/');
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await res.json();
+        setLocation({ latitude: data.latitude, longitude: data.longitude });
       } catch (err) {
         setError('Unable to fetch location');
+        setLoading(false);
       }
     };
 
@@ -32,6 +36,9 @@ const Home = () => {
       if (location.latitude && location.longitude) {
         try {
           const res = await fetch(`/api/prayer-times?latitude=${location.latitude}&longitude=${location.longitude}`);
+          if (!res.ok) {
+            throw new Error('Network response was not ok');
+          }
           const data = await res.json();
           setPrayerTimes(data.data.timings);
           setLoading(false); // Set loading to false after fetching
