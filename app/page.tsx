@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Spinner from './components/Spinner';
-import RamadanCalendar from './components/RamadanCalendar';
+import Spinner from '../components/Spinner';
+import RamadanCalendar from '../components/RamadanCalendar';
 
 const Home = () => {
   const [prayerTimes, setPrayerTimes] = useState<any>(null);
