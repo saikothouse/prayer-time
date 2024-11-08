@@ -4,8 +4,17 @@ import { useEffect, useState } from 'react';
 import Spinner from '../components/Spinner';
 import RamadanCalendar from '../components/RamadanCalendar';
 
+interface PrayerTimes {
+  Fajr: string;
+  Dhuhr: string;
+  Asr: string;
+  Maghrib: string;
+  Isha: string;
+  [key: string]: string; // Allow for other prayer names if needed
+}
+
 const Home = () => {
-  const [prayerTimes, setPrayerTimes] = useState<any>(null);
+  const [prayerTimes, setPrayerTimes] = useState<PrayerTimes | null>(null);
   const [location, setLocation] = useState<{ latitude: number | null; longitude: number | null }>({
     latitude: null,
     longitude: null,
@@ -25,6 +34,7 @@ const Home = () => {
       } catch (err) {
         setError('Unable to fetch location');
         setLoading(false);
+        console.error(err); // Log the error for debugging
       }
     };
 
@@ -45,6 +55,7 @@ const Home = () => {
         } catch (err) {
           setError('Unable to fetch prayer times');
           setLoading(false);
+          console.error(err); // Log the error for debugging
         }
       }
     };
